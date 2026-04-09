@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from kNN_classifier import kNNClassifier
-from sklearn.metrics import confusion_matrix
+from performance import save_confusion_matrix
 
 labels = ["pop", "metal", "disco", "blues", "reggae", "classical", "rock", "hiphop", "country", "jazz"]
 
@@ -38,16 +38,18 @@ test_10s = df_10s_test.to_numpy()
 train_30s = df_30s_train.to_numpy()
 test_30s = df_30s_test.to_numpy()
 
+# Task 1
 classifier = kNNClassifier(k=5)
 classifier.fit(train_30s[:, :-1], train_30s[:, -1])
 predictions = classifier.predict(test_30s[:, :-1])
+
 accuracy = np.mean(predictions == test_30s[:, -1])
 print(f'Error rate: {1 - accuracy:.2f}')
 
-cm = confusion_matrix(
-    test_30s[:, -1],
-    predictions,
-    labels=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-)
+# save_confusion_matrix(test_30s[:, -1], predictions, labels, f"Task 1 - Confusion matrix\n Error rate: {1 - accuracy:.2f}", "task_1_cm")
 
-print(cm)
+# Task 2
+
+# Task 3
+
+# Task 4

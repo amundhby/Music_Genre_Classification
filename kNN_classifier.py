@@ -14,7 +14,7 @@ class kNNClassifier:
         return np.array(predicted_labels)
 
     def _predict(self, x):
-        # Compute distances between x and all examples in the training set
+        # Compute distances between x and all samples in the training set
         distances = np.linalg.norm(self.X_train - x, axis=1)
         
         # Sort by distance and return indices of the first k neighbors
