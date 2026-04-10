@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from kNN_classifier import kNNClassifier
-from performance import save_confusion_matrix
+from performance import save_confusion_matrix, plot_histogram
 
 labels = ["pop", "metal", "disco", "blues", "reggae", "classical", "rock", "hiphop", "country", "jazz"]
 
@@ -15,9 +15,9 @@ features = [
 ]
 
 # Loading data files
-df_5s = pd.read_csv('data/GenreClassData_5s.txt', sep='\t', usecols=features + ['Type'])
-df_10s = pd.read_csv('data/GenreClassData_10s.txt', sep='\t', usecols=features + ['Type'])
-df_30s = pd.read_csv('data/GenreClassData_30s.txt', sep='\t', usecols=features + ['Type'])
+df_5s = pd.read_csv('data/GenreClassData_5s.txt', sep='\t', usecols=features + ['Type', 'Genre'])
+df_10s = pd.read_csv('data/GenreClassData_10s.txt', sep='\t', usecols=features + ['Type', 'Genre'])
+df_30s = pd.read_csv('data/GenreClassData_30s.txt', sep='\t', usecols=features + ['Type', 'Genre'])
 
 # Splitting training and testing data
 df_5s_train = df_5s[df_5s['Type'] == 'Train'][features]
@@ -49,6 +49,11 @@ print(f'Error rate: {1 - accuracy:.2f}')
 # save_confusion_matrix(test_30s[:, -1], predictions, labels, f"Task 1 - Confusion matrix\n Error rate: {1 - accuracy:.2f}", "task_1_cm")
 
 # Task 2
+test_labels = ["pop", "disco", "metal", "classical"]
+#plot_histogram(df_30s, test_labels, 'spectral_rolloff_mean', 0, 9000, bins=30, title="Distribution of Spectral Rolloff Mean", task="task_2")
+#plot_histogram(df_30s, test_labels, 'mfcc_1_mean', -800, 100, bins=30, title="Distribution of MFCC 1 Mean", task="task_2")
+#plot_histogram(df_30s, test_labels, 'spectral_centroid_mean', 0, 5000, bins=30, title="Distribution of Spectral Centroid Mean", task="task_2")
+#plot_histogram(df_30s, test_labels, 'tempo', 50, 200, bins=30, title="Distribution of Tempo", task="task_2")
 
 # Task 3
 
