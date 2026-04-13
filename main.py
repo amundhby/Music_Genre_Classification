@@ -134,7 +134,7 @@ scaler = MaxMinScaler(feature_range=(0, 1))
 scaled_X_train = scaler.fit_transform(X_train)
 scaled_X_test  = scaler.transform(X_test)
 
-classifier_flag = "LDA"
+classifier_flag = "QDA"
 
 if classifier_flag == "kNN":
     classifier = kNNClassifier(k=5)
