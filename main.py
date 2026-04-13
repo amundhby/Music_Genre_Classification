@@ -112,8 +112,9 @@ print(f'It replaced: {prev_features[index_of_replaced_feature]}')
 
 
 # Task 4
-features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_2_mean', 'chroma_stft_8_mean', 'mfcc_5_std']
-#features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_5_mean', 'chroma_stft_8_mean', 'chroma_stft_5_std', 'mfcc_1_mean', 'mfcc_3_std', 'mfcc_5_std']
+features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_2_mean', 'chroma_stft_8_mean', 'mfcc_5_std'] # 6 Features that make QDA classify with 65% accuracy
+#features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_5_mean', 'chroma_stft_8_mean', 'chroma_stft_5_std', 'mfcc_1_mean', 'mfcc_3_std', 'mfcc_5_std'] # 9 features that make QDA classify with 70% accuracy
+#features = ['spectral_rolloff_mean', 'mfcc_1_mean', 'spectral_centroid_mean', 'tempo'] + remaining_features # All features that make LDA classify with 71% accuracy
 
 #df = pd.read_csv('data/GenreClassData_30s.txt', sep='\t', usecols=['spectral_rolloff_mean', 'mfcc_1_mean', 'spectral_centroid_mean', 'tempo'] + ['Type', 'GenreID', 'Genre'] + remaining_features)
 df = pd.read_csv('data/GenreClassData_30s.txt', sep='\t', usecols=features + ['Type', 'GenreID', 'Genre'])
@@ -133,7 +134,7 @@ scaler = MaxMinScaler(feature_range=(0, 1))
 scaled_X_train = scaler.fit_transform(X_train)
 scaled_X_test  = scaler.transform(X_test)
 
-classifier_flag = "QDA"
+classifier_flag = "LDA"
 
 if classifier_flag == "kNN":
     classifier = kNNClassifier(k=5)
@@ -151,6 +152,6 @@ else:
     accuracy = 0
 
 accuracy = np.mean(predictions == Y_test)
-print(f'Error rate with new features and QDA classifier: {1 - accuracy:.2f}')
+print(f'Error rate with new features and {classifier_flag} classifier: {1 - accuracy:.2f}')
 
 #save_confusion_matrix(Y_test, predictions, labels, f"Task 4 - Confusion matrix\n Error rate: {1 - accuracy:.2f}", "task_4_cm")
