@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from kNN_classifier import kNNClassifier
 from maxMinScaler import MaxMinScaler
-from performance import save_confusion_matrix, plot_histogram, findBestNewFeature
+from QDA_classifier import QDAClassifier
+from LDA_classifier import LDACLassifier
+from performance import save_confusion_matrix, plot_histogram, findBestNewFeature, findBestNewFeatureQDA
 
 labels = ["pop", "metal", "disco", "blues", "reggae", "classical", "rock", "hiphop", "country", "jazz"]
 
@@ -110,3 +112,45 @@ print(f'It replaced: {prev_features[index_of_replaced_feature]}')
 
 
 # Task 4
+features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_2_mean', 'chroma_stft_8_mean', 'mfcc_5_std']
+#features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_5_mean', 'chroma_stft_8_mean', 'chroma_stft_5_std', 'mfcc_1_mean', 'mfcc_3_std', 'mfcc_5_std']
+
+#df = pd.read_csv('data/GenreClassData_30s.txt', sep='\t', usecols=['spectral_rolloff_mean', 'mfcc_1_mean', 'spectral_centroid_mean', 'tempo'] + ['Type', 'GenreID', 'Genre'] + remaining_features)
+df = pd.read_csv('data/GenreClassData_30s.txt', sep='\t', usecols=features + ['Type', 'GenreID', 'Genre'])
+
+df_X_train = df[df['Type'] == 'Train'][features]
+df_Y_train = df[df['Type'] == 'Train']['GenreID']
+df_X_test  = df[df['Type'] == 'Test'][features]
+df_Y_test  = df[df['Type'] == 'Test']['GenreID']
+
+X_train = df_X_train.to_numpy()
+Y_train = df_Y_train.to_numpy()
+X_test  = df_X_test.to_numpy()
+Y_test  = df_Y_test.to_numpy()
+
+scaler = MaxMinScaler(feature_range=(0, 1))
+
+scaled_X_train = scaler.fit_transform(X_train)
+scaled_X_test  = scaler.transform(X_test)
+
+classifier_flag = "QDA"
+
+if classifier_flag == "kNN":
+    classifier = kNNClassifier(k=5)
+    classifier.fit(scaled_X_train, Y_train)
+    predictions = classifier.predict(scaled_X_test)
+elif classifier_flag == "QDA":
+    classifier = QDAClassifier()
+    classifier.fit(scaled_X_train, Y_train)
+    predictions = classifier.predict(scaled_X_test)
+elif classifier_flag == "LDA":
+    classifier = LDACLassifier()
+    classifier.fit(scaled_X_train, Y_train)
+    predictions = classifier.predict(scaled_X_test)
+else:
+    accuracy = 0
+
+accuracy = np.mean(predictions == Y_test)
+print(f'Error rate with new features and QDA classifier: {1 - accuracy:.2f}')
+
+#save_confusion_matrix(Y_test, predictions, labels, f"Task 4 - Confusion matrix\n Error rate: {1 - accuracy:.2f}", "task_4_cm")
