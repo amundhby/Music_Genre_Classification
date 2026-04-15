@@ -113,6 +113,7 @@ print(f'It replaced: {prev_features[index_of_replaced_feature]}')
 
 # Task 4
 features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_2_mean', 'chroma_stft_8_mean', 'mfcc_5_std'] # 6 Features that make QDA classify with 65% accuracy
+#features = ['chroma_stft_6_std', 'spectral_centroid_mean', 'rmse_var', 'mfcc_7_std', 'chroma_stft_6_mean', 'spectral_contrast_var'] # 6 Features that make kNN classify with 60% accuracy
 #features = ['zero_cross_rate_mean', 'rmse_var', 'spectral_rolloff_mean', 'chroma_stft_5_mean', 'chroma_stft_8_mean', 'chroma_stft_5_std', 'mfcc_1_mean', 'mfcc_3_std', 'mfcc_5_std'] # 9 features that make QDA classify with 70% accuracy
 #features = ['spectral_rolloff_mean', 'mfcc_1_mean', 'spectral_centroid_mean', 'tempo'] + remaining_features # All features that make LDA classify with 71% accuracy
 
@@ -154,4 +155,4 @@ else:
 accuracy = np.mean(predictions == Y_test)
 print(f'Error rate with new features and {classifier_flag} classifier: {1 - accuracy:.2f}')
 
-#save_confusion_matrix(Y_test, predictions, labels, f"Task 4 - Confusion matrix\n Error rate: {1 - accuracy:.2f}", "task_4_cm")
+#save_confusion_matrix(Y_test, predictions, labels, f"Task 4 - Confusion matrix\n Error rate: {1 - accuracy:.2f}", "task_4_cm_QDA")
