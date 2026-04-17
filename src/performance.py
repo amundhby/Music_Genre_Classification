@@ -3,9 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
-from maxMinScaler import MaxMinScaler
-from kNN_classifier import kNNClassifier
-from QDA_classifier import QDAClassifier
+from src.maxMinScaler import MaxMinScaler
+from src.kNN_classifier import kNNClassifier
+from src.QDA_classifier import QDAClassifier
 
 def save_confusion_matrix(y_true, y_pred, labels, figure_title, png_title):
     cm = confusion_matrix(

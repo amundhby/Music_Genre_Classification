@@ -1,11 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from kNN_classifier import kNNClassifier
-from maxMinScaler import MaxMinScaler
-from QDA_classifier import QDAClassifier
-from LDA_classifier import LDACLassifier
-from performance import save_confusion_matrix, plot_histogram, findBestNewFeature, findBestNewFeatureQDA
+from src.kNN_classifier import kNNClassifier
+from src.maxMinScaler import MaxMinScaler
+from src.QDA_classifier import QDAClassifier
+from src.LDA_classifier import LDACLassifier
+from src.performance import save_confusion_matrix, plot_histogram, findBestNewFeature, findBestNewFeatureQDA
 
 labels = ["pop", "metal", "disco", "blues", "reggae", "classical", "rock", "hiphop", "country", "jazz"]
 
